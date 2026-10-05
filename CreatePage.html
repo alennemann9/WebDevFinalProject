@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Page</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<main>
+    <div class="header">
+        <h1>Sports Connections</h1>
+        <div class="pages">
+            <p>Play</p>
+            <p><u>Create</u></p>
+            <p>Results</p>
+        </div>
+    </div>
+    <div class="sectionTitle">
+        <h2>Create a Puzzle</h2>
+        <p>Make four groups of four players. Each player can only appear once. Each category
+            must contain exactly 4 players on the grid.</p>
+    </div>
+    <div class="puzzleInfo">
+        <div class="infoForm" id="user">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Your Public Username" name="username">
+        </div>
+        <div class="infoForm">
+            <label for="sport">Sport</label>
+            <select id="sport" name="sport">
+                <option value="football">Football</option>
+                <option value="basketball">Basketball</option>
+                <option value="baseball">Baseball</option>
+                <option value="hockey">Hockey</option>
+                <option value="all sports">All Sports</option>
+            </select>
+        </div>
+    </div>
+    <div class="categories">
+        <div class="category">
+            <input type="text" name="category1" id="category1" placeholder="Category 1" required>
+            <input type="text" name="1athlete1" id="1athlete1" placeholder="Athlete 1" required>
+            <input type="text" name="1athlete2" id="1athlete2" placeholder="Athlete 2" required>
+            <input type="text" name="1athlete3" id="1athlete3" placeholder="Athlete 3" required>
+            <input type="text" name="1athlete4" id="1athlete4" placeholder="Athlete 4" required>
+        </div>
+        <div class="category">
+            <input type="text" name="category2" id="category2" placeholder="Category 2" required>
+            <input type="text" name="2athlete1" id="2athlete1" placeholder="Athlete 1" required>
+            <input type="text" name="2athlete2" id="2athlete2" placeholder="Athlete 2" required>
+            <input type="text" name="2athlete3" id="2athlete3" placeholder="Athlete 3" required>
+            <input type="text" name="2athlete4" id="2athlete4" placeholder="Athlete 4" required>
+        </div>
+        <div class="category">
+            <input type="text" name="category3" id="category3" placeholder="Category 3" required>
+            <input type="text" name="3athlete1" id="3athlete1" placeholder="Athlete 1" required>
+            <input type="text" name="3athlete2" id="3athlete2" placeholder="Athlete 2" required>
+            <input type="text" name="3athlete3" id="3athlete3" placeholder="Athlete 3" required>
+            <input type="text" name="3athlete4" id="3athlete4" placeholder="Athlete 4" required>
+        </div>
+        <div class="category">
+            <input type="text" name="category4" id="category4" placeholder="Category 4" required>
+            <input type="text" name="4athlete1" id="4athlete1" placeholder="Athlete 1" required>
+            <input type="text" name="4athlete2" id="4athlete2" placeholder="Athlete 2" required>
+            <input type="text" name="4athlete3" id="4athlete3" placeholder="Athlete 3" required>
+            <input type="text" name="4athlete4" id="4athlete4" placeholder="Athlete 4" required>
+        </div>
+    </div>
+    <div class="note">
+        <p>Rows go from easiest (yellow) to hardest (purple).</p>
+    </div>
+    <div class="submitSection">
+        <div class="button submitButton">
+            <input type="submit" value="Submit">
+        </div>
+    </div>
+</main>
+</body>
+</html>
