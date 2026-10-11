@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Page</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<main>
+    <header class="header">
+        <h1>Sports Connections</h1>
+        <nav class="pages" aria-label="Main">
+            <a href="../index.html">Play</a>
+            <a href="CreatePage.html" aria-current="page">Create</a>
+            <a href="ResultsPage.html">Results</a>
+        </nav>
+    </header>
+    <div class="sectionTitle">
+        <h2>Create a Puzzle</h2>
+        <p>Make four groups of four players. Each player can only appear once. Each category
+            must contain exactly 4 players on the grid.</p>
+    </div>
+    <form class="createForm">
+        <div class="puzzleInfo">
+            <div class="infoForm" id="user">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Your Public Username" name="username">
+            </div>
+            <div class="infoForm">
+                <label for="sport">Sport</label>
+                <select id="sport" name="sport">
+                    <option value="football">Football</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="baseball">Baseball</option>
+                    <option value="hockey">Hockey</option>
+                    <option value="all sports">All Sports</option>
+                </select>
+            </div>
+        </div>
+        <div class="categories">
+            <fieldset class="category">
+                <legend class="visually-hidden">Category 1 (easiest, yellow)</legend>
+                <input type="text" name="category1" id="category1" placeholder="Category 1" aria-label="Category 1 name" required>
+                <input type="text" name="cat1-athlete1" id="cat1-athlete1" placeholder="Athlete 1" aria-label="Category 1, athlete 1" required>
+                <input type="text" name="cat1-athlete2" id="cat1-athlete2" placeholder="Athlete 2" aria-label="Category 1, athlete 2" required>
+                <input type="text" name="cat1-athlete3" id="cat1-athlete3" placeholder="Athlete 3" aria-label="Category 1, athlete 3" required>
+                <input type="text" name="cat1-athlete4" id="cat1-athlete4" placeholder="Athlete 4" aria-label="Category 1, athlete 4" required>
+            </fieldset>
+            <fieldset class="category">
+                <legend class="visually-hidden">Category 2 (green)</legend>
+                <input type="text" name="category2" id="category2" placeholder="Category 2" aria-label="Category 2 name" required>
+                <input type="text" name="cat2-athlete1" id="cat2-athlete1" placeholder="Athlete 1" aria-label="Category 2, athlete 1" required>
+                <input type="text" name="cat2-athlete2" id="cat2-athlete2" placeholder="Athlete 2" aria-label="Category 2, athlete 2" required>
+                <input type="text" name="cat2-athlete3" id="cat2-athlete3" placeholder="Athlete 3" aria-label="Category 2, athlete 3" required>
+                <input type="text" name="cat2-athlete4" id="cat2-athlete4" placeholder="Athlete 4" aria-label="Category 2, athlete 4" required>
+            </fieldset>
+            <fieldset class="category">
+                <legend class="visually-hidden">Category 3 (blue)</legend>
+                <input type="text" name="category3" id="category3" placeholder="Category 3" aria-label="Category 3 name" required>
+                <input type="text" name="cat3-athlete1" id="cat3-athlete1" placeholder="Athlete 1" aria-label="Category 3, athlete 1" required>
+                <input type="text" name="cat3-athlete2" id="cat3-athlete2" placeholder="Athlete 2" aria-label="Category 3, athlete 2" required>
+                <input type="text" name="cat3-athlete3" id="cat3-athlete3" placeholder="Athlete 3" aria-label="Category 3, athlete 3" required>
+                <input type="text" name="cat3-athlete4" id="cat3-athlete4" placeholder="Athlete 4" aria-label="Category 3, athlete 4" required>
+            </fieldset>
+            <fieldset class="category">
+                <legend class="visually-hidden">Category 4 (hardest, purple)</legend>
+                <input type="text" name="category4" id="category4" placeholder="Category 4" aria-label="Category 4 name" required>
+                <input type="text" name="cat4-athlete1" id="cat4-athlete1" placeholder="Athlete 1" aria-label="Category 4, athlete 1" required>
+                <input type="text" name="cat4-athlete2" id="cat4-athlete2" placeholder="Athlete 2" aria-label="Category 4, athlete 2" required>
+                <input type="text" name="cat4-athlete3" id="cat4-athlete3" placeholder="Athlete 3" aria-label="Category 4, athlete 3" required>
+                <input type="text" name="cat4-athlete4" id="cat4-athlete4" placeholder="Athlete 4" aria-label="Category 4, athlete 4" required>
+            </fieldset>
+        </div>
+        <div class="note">
+            <p>Rows go from easiest (yellow) to hardest (purple).</p>
+        </div>
+        <div class="submitSection">
+            <button type="submit" class="button submitButton">Submit</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

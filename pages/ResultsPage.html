@@ -4,42 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Results Page</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="../css/style.css">
 
 </head>
 <body>
 <main>
-  <div class="header">
+  <header class="header">
     <h1>Sports Connections</h1>
-    <div class="pages">
-      <p>Play</p>
-      <p>Create</p>
-      <p><u>Results</u></p>
-    </div>
-  </div>
+    <nav class="pages" aria-label="Main">
+      <a href="../index.html">Play</a>
+      <a href="CreatePage.html">Create</a>
+      <a href="ResultsPage.html" aria-current="page">Results</a>
+    </nav>
+  </header>
   <div class="sectionTitle">
     <h2>Your Results</h2>
   </div>
   <div class="mainResults">
-    <div class="card">
-      <h3>24</h3>
+    <div class="stat">
+      <p class="statValue">24</p>
       <p>Games Played</p>
     </div>
-    <div class="card">
-      <h3>75%</h3>
+    <div class="stat">
+      <p class="statValue">75%</p>
       <p>Win Rate</p>
     </div>
-    <div class="card">
-      <h3>3</h3>
+    <div class="stat">
+      <p class="statValue">3</p>
       <p>Current Streak</p>
     </div>
-    <div class="card">
-      <h3>7</h3>
+    <div class="stat">
+      <p class="statValue">7</p>
       <p>Best Streak</p>
     </div>
   </div>
   <div class="specificResults">
-    <p><strong>By Sport</strong></p>
+    <h3>By Sport</h3>
     <div class="infoResult">
       <p>Football</p>
       <p>6 of 7 wins</p>
@@ -67,7 +67,7 @@
     <div class="line"></div>
   </div>
   <div class="specificResults">
-    <p><strong>Recent Games</strong></p>
+    <h3>Recent Games</h3>
     <div class="infoResult">
       <p>Sep 24·Daily Football</p>
       <p class="solved">Solved·1 mistake</p>

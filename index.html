@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Page</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <main>
+        <header class="header">
+            <h1>Sports Connections</h1>
+            <nav class="pages" aria-label="Main">
+                <a href="index.html" aria-current="page">Play</a>
+                <a href="pages/CreatePage.html">Create</a>
+                <a href="pages/ResultsPage.html">Results</a>
+            </nav>
+        </header>
+        <h2 class="visually-hidden">Today's Puzzle</h2>
+        <div class="choices" role="group" aria-label="Choose a sport">
+            <button type="button" class="choice">Football</button>
+            <button type="button" class="choice">Basketball</button>
+            <button type="button" class="choice">Baseball</button>
+            <button type="button" class="choice">Hockey</button>
+            <button type="button" class="choice">All Sports</button>
+            <button type="button" class="choice" id="comm">Community</button>
+        </div>
+        <div class="board">
+            <div class="row">
+                <button type="button" class="card"><span class="name">Bary Bonds</span></button>
+                <button type="button" class="card"><span class="name">Murph Lennemann</span></button>
+                <button type="button" class="card"><span class="name">Blake Griffin</span></button>
+                <button type="button" class="card"><span class="name">Buster Posey</span></button>
+            </div>
+            <div class="row">
+                <button type="button" class="card"><span class="name">Cooper Flagg</span></button>
+                <button type="button" class="card"><span class="name">Blake Snell</span></button>
+                <button type="button" class="card"><span class="name">Tom Brady</span></button>
+                <button type="button" class="card"><span class="name">Jason Giambi</span></button>
+            </div>
+            <div class="row">
+                <button type="button" class="card"><span class="name">Herschel Walker</span></button>
+                <button type="button" class="card"><span class="name">Tarik Skubal</span></button>
+                <button type="button" class="card"><span class="name">Stephen Curry</span></button>
+                <button type="button" class="card"><span class="name">Lynn Swan</span></button>
+            </div>
+            <div class="row">
+                <button type="button" class="card"><span class="name">Jim Thorpe</span></button>
+                <button type="button" class="card"><span class="name">Tyler Glasnow</span></button>
+                <button type="button" class="card"><span class="name">Roki Sasaki</span></button>
+                <button type="button" class="card"><span class="name">Sauce Gardner</span></button>
+            </div>
+        </div>
+        <div class="mistakes">
+            <p>Mistakes Remaining:<span class="visually-hidden"> 4 of 4</span></p>
+            <div aria-hidden="true"></div>
+            <div aria-hidden="true"></div>
+            <div aria-hidden="true"></div>
+            <div aria-hidden="true"></div>
+        </div>
+        <div class="gameButtons">
+            <button type="button" class="button">Shuffle</button>
+            <button type="button" class="button">Deselect All</button>
+            <button type="button" class="button submitButton">Submit</button>
+        </div>
+    </main>
+</body>
+</html>
