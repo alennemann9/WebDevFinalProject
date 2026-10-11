@@ -1,69 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Page</title>
-    <link rel="stylesheet" href="css/style.css">
-
+  <!--
+    Sports Connections - PLAY page (site home page)
+    Shows today's puzzle: pick a sport, then find four groups of
+    four related players on the 4x4 board.
+    Styles: css/style.css (section 4 = Play page)
+    Static mockup only - no JavaScript yet, so the buttons and
+    tiles don't do anything when clicked.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play · Sports Connections</title>
+  <!-- Google Fonts: load "Libre Franklin" (weights 400-800).
+       The two preconnect links start the connection to Google's
+       servers early so the font downloads faster. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&display=swap">
+  <!-- Shared stylesheet for the whole site -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <main>
-        <header class="header">
-            <h1>Sports Connections</h1>
-            <nav class="pages" aria-label="Main">
-                <a href="index.html" aria-current="page">Play</a>
-                <a href="pages/CreatePage.html">Create</a>
-                <a href="pages/ResultsPage.html">Results</a>
-            </nav>
-        </header>
-        <h2 class="visually-hidden">Today's Puzzle</h2>
-        <div class="choices" role="group" aria-label="Choose a sport">
-            <button type="button" class="choice">Football</button>
-            <button type="button" class="choice">Basketball</button>
-            <button type="button" class="choice">Baseball</button>
-            <button type="button" class="choice">Hockey</button>
-            <button type="button" class="choice">All Sports</button>
-            <button type="button" class="choice" id="comm">Community</button>
-        </div>
-        <div class="board">
-            <div class="row">
-                <button type="button" class="card"><span class="name">Bary Bonds</span></button>
-                <button type="button" class="card"><span class="name">Murph Lennemann</span></button>
-                <button type="button" class="card"><span class="name">Blake Griffin</span></button>
-                <button type="button" class="card"><span class="name">Buster Posey</span></button>
-            </div>
-            <div class="row">
-                <button type="button" class="card"><span class="name">Cooper Flagg</span></button>
-                <button type="button" class="card"><span class="name">Blake Snell</span></button>
-                <button type="button" class="card"><span class="name">Tom Brady</span></button>
-                <button type="button" class="card"><span class="name">Jason Giambi</span></button>
-            </div>
-            <div class="row">
-                <button type="button" class="card"><span class="name">Herschel Walker</span></button>
-                <button type="button" class="card"><span class="name">Tarik Skubal</span></button>
-                <button type="button" class="card"><span class="name">Stephen Curry</span></button>
-                <button type="button" class="card"><span class="name">Lynn Swan</span></button>
-            </div>
-            <div class="row">
-                <button type="button" class="card"><span class="name">Jim Thorpe</span></button>
-                <button type="button" class="card"><span class="name">Tyler Glasnow</span></button>
-                <button type="button" class="card"><span class="name">Roki Sasaki</span></button>
-                <button type="button" class="card"><span class="name">Sauce Gardner</span></button>
-            </div>
-        </div>
-        <div class="mistakes">
-            <p>Mistakes Remaining:<span class="visually-hidden"> 4 of 4</span></p>
-            <div aria-hidden="true"></div>
-            <div aria-hidden="true"></div>
-            <div aria-hidden="true"></div>
-            <div aria-hidden="true"></div>
-        </div>
-        <div class="gameButtons">
-            <button type="button" class="button">Shuffle</button>
-            <button type="button" class="button">Deselect All</button>
-            <button type="button" class="button submitButton">Submit</button>
-        </div>
-    </main>
+<main>
+  <!-- ===== Site header (same on every page) =====
+       Site title + main navigation. The link for the current page
+       has aria-current="page", which the CSS underlines and bolds
+       and screen readers announce as "current page". -->
+  <header class="header">
+    <h1>Sports Connections</h1>
+    <nav class="pages" aria-label="Main">
+      <a href="index.html" aria-current="page">Play</a>
+      <a href="pages/CreatePage.html">Create</a>
+      <a href="pages/ResultsPage.html">Results</a>
+    </nav>
+  </header>
+  <!-- Hidden heading: invisible on screen, but gives screen reader
+       users a heading to jump to (see .visually-hidden in the CSS). -->
+  <h2 class="visually-hidden">Today's Puzzle</h2>
+  <!-- ===== Sport picker =====
+       Pill buttons for choosing which puzzle to play.
+       role="group" + aria-label tell screen readers these buttons
+       belong together and what they are for.
+       type="button" stops a button from acting like a form submit. -->
+  <div class="choices" role="group" aria-label="Choose a sport">
+    <button type="button" class="choice">Football</button>
+    <button type="button" class="choice">Basketball</button>
+    <button type="button" class="choice">Baseball</button>
+    <button type="button" class="choice">Hockey</button>
+    <button type="button" class="choice">All Sports</button>
+    <!-- Community = puzzles made by other players (purple via #comm) -->
+    <button type="button" class="choice" id="comm">Community</button>
+  </div>
+  <!-- ===== Puzzle board =====
+       16 player tiles in a 4x4 CSS grid (4 per row).
+       Each tile is a <button> so it can be reached with the Tab key
+       and clicked; the name sits in a <span class="name">. -->
+  <div class="board">
+    <button type="button" class="card"><span class="name">Barry Bonds</span></button>
+    <button type="button" class="card"><span class="name">Murph Lennemann</span></button>
+    <button type="button" class="card"><span class="name">Blake Griffin</span></button>
+    <button type="button" class="card"><span class="name">Buster Posey</span></button>
+    <button type="button" class="card"><span class="name">Cooper Flagg</span></button>
+    <button type="button" class="card"><span class="name">Blake Snell</span></button>
+    <button type="button" class="card"><span class="name">Tom Brady</span></button>
+    <button type="button" class="card"><span class="name">Jason Giambi</span></button>
+    <button type="button" class="card"><span class="name">Herschel Walker</span></button>
+    <button type="button" class="card"><span class="name">Tarik Skubal</span></button>
+    <button type="button" class="card"><span class="name">Stephen Curry</span></button>
+    <button type="button" class="card"><span class="name">Lynn Swann</span></button>
+    <button type="button" class="card"><span class="name">Jim Thorpe</span></button>
+    <button type="button" class="card"><span class="name">Tyler Glasnow</span></button>
+    <button type="button" class="card"><span class="name">Roki Sasaki</span></button>
+    <button type="button" class="card"><span class="name">Sauce Gardner</span></button>
+  </div>
+  <!-- ===== Mistakes remaining =====
+       Four dots = four mistakes left. The dots are empty <div>s
+       drawn by CSS; aria-hidden="true" makes screen readers skip
+       them, and the hidden " 4 of 4" text gives them the count
+       instead. (Update both together once the game is interactive.) -->
+  <div class="mistakes">
+    <p>Mistakes Remaining:<span class="visually-hidden"> 4 of 4</span></p>
+    <div aria-hidden="true"></div>
+    <div aria-hidden="true"></div>
+    <div aria-hidden="true"></div>
+    <div aria-hidden="true"></div>
+  </div>
+  <!-- ===== Game controls =====
+       "button submitButton" = the shared rounded button style
+       plus the purple main-action color. -->
+  <div class="gameButtons">
+    <button type="button" class="button">Shuffle</button>
+    <button type="button" class="button">Deselect All</button>
+    <button type="button" class="button submitButton">Submit</button>
+  </div>
+</main>
 </body>
 </html>

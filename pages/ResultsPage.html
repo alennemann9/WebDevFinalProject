@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--
+    Sports Connections - RESULTS page
+    The player's stats: four summary boxes, wins broken down by
+    sport, and a list of recent games.
+    Styles: css/style.css (section 6 = Results page)
+    All numbers here are placeholder data for the mockup.
+  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Results Page</title>
+  <title>Your Results · Sports Connections</title>
+  <!-- Google Fonts: load "Libre Franklin" (weights 400-800).
+       The two preconnect links start the connection to Google's
+       servers early so the font downloads faster. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&display=swap">
+  <!-- Shared stylesheet ("../" = go up one folder from pages/) -->
   <link rel="stylesheet" href="../css/style.css">
-
 </head>
 <body>
 <main>
+  <!-- ===== Site header (same on every page) =====
+       Site title + main navigation. The link for the current page
+       has aria-current="page", which the CSS underlines and bolds
+       and screen readers announce as "current page". -->
   <header class="header">
     <h1>Sports Connections</h1>
     <nav class="pages" aria-label="Main">
@@ -17,9 +34,14 @@
       <a href="ResultsPage.html" aria-current="page">Results</a>
     </nav>
   </header>
+  <!-- ===== Page heading ===== -->
   <div class="sectionTitle">
     <h2>Your Results</h2>
   </div>
+  <!-- ===== Summary stat boxes =====
+       Shown as a 2x2 grid on phones and one row of four on
+       tablet/desktop. In each box the number is a <p class="statValue">
+       (not a heading, since it's data) and the label is a plain <p>. -->
   <div class="mainResults">
     <div class="stat">
       <p class="statValue">24</p>
@@ -39,51 +61,48 @@
     </div>
   </div>
   <div class="specificResults">
+    <!-- ===== Wins by sport =====
+         Each .infoResult row: sport on the left, record on the right,
+         with a divider line drawn by the CSS (border-bottom). -->
     <h3>By Sport</h3>
     <div class="infoResult">
       <p>Football</p>
       <p>6 of 7 wins</p>
     </div>
-    <div class="line"></div>
     <div class="infoResult">
       <p>Basketball</p>
       <p>4 of 6 wins</p>
     </div>
-    <div class="line"></div>
     <div class="infoResult">
       <p>Baseball</p>
       <p>5 of 5 wins</p>
     </div>
-    <div class="line"></div>
     <div class="infoResult">
-    <p>Hockey</p>
-    <p>1 of 3 wins</p>
-  </div>
-    <div class="line"></div>
+      <p>Hockey</p>
+      <p>1 of 3 wins</p>
+    </div>
     <div class="infoResult">
       <p>All Sports</p>
       <p>2 of 3 wins</p>
     </div>
-    <div class="line"></div>
   </div>
   <div class="specificResults">
+    <!-- ===== Recent games =====
+         Left: date + puzzle name. Right: outcome, colored green
+         (class="solved") or red (class="failed"). -->
     <h3>Recent Games</h3>
     <div class="infoResult">
-      <p>Sep 24·Daily Football</p>
-      <p class="solved">Solved·1 mistake</p>
+      <p>Sep 24 · Daily Football</p>
+      <p class="solved">Solved · 1 mistake</p>
     </div>
-    <div class="line"></div>
     <div class="infoResult">
-      <p>Sep 24·Community Football by teambrendanhaggerty</p>
-      <p class="solved">Solved·0 mistakes</p>
+      <p>Sep 24 · Community Football by teambrendanhaggerty</p>
+      <p class="solved">Solved · 0 mistakes</p>
     </div>
-    <div class="line"></div>
     <div class="infoResult">
-      <p>Sep 23·Daily Hockey</p>
-      <p class="failed">Failed·4 mistakes</p>
+      <p>Sep 23 · Daily Hockey</p>
+      <p class="failed">Failed · 4 mistakes</p>
     </div>
-    <div class="line"></div>
-
   </div>
 </main>
 </body>

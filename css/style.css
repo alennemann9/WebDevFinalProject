@@ -1,338 +1,654 @@
-/* Global foundation */
+/* ==========================================================
+  Sports Connections - global stylesheet
+  ----------------------------------------------------------
+  One stylesheet is shared by all three pages:
+    index.html              -> Play page (the puzzle board)
+    pages/CreatePage.html   -> Create a Puzzle form
+    pages/ResultsPage.html  -> Player stats
+
+  This file is written MOBILE-FIRST (see AGENTS.md):
+    - Everything outside a media query is the PHONE layout.
+    - The @media (min-width: 768px) block at the bottom of the
+      file adds/overrides styles for tablets and desktops.
+
+  File order:
+    1. Color palette (CSS variables)
+    2. Global foundation (resets + helpers used everywhere)
+    3. Layout + header (shared by every page)
+    4. Play page (sport pills, board, mistakes, buttons)
+    5. Create page (puzzle form)
+    6. Results page (stat boxes + result lists)
+    7. Tablet and up (min-width: 768px)
+  ========================================================== */
+
+
+/* ==========================================================
+  1. COLOR PALETTE
+  ----------------------------------------------------------
+  Every color in the site is defined once here as a CSS
+  variable ("custom property"). Rules below use them like
+  this:  color: var(--purple);
+  To change a color everywhere, change it in this one place.
+  ========================================================== */
+:root {
+  --ink: #1a1a1a;          /* main text + borders (near-black) */
+  --muted: #2f4f4f;        /* softer text: "Mistakes Remaining" */
+  --purple: #6a2c91;       /* brand purple: headings, Submit, Community */
+  --purple-dark: #4f1f6d;  /* purple hover state */
+  --tile: #fafad2;         /* pale yellow: board tiles, inputs, stat boxes */
+  --tile-hover: #f0f0b4;   /* tile hover state */
+  --pill: #1a1a1a;         /* sport pill background */
+  --line: #1a1a1a;         /* divider lines on the Results page */
+  --placeholder: #555555;  /* placeholder text in Create inputs */
+
+  /* Category colors go from easiest (1) to hardest (4),
+     matching the Connections difficulty order. */
+  --cat-1: #f9df6d; /* yellow - easiest */
+  --cat-2: #a0c35a; /* green */
+  --cat-3: #b0c4ef; /* blue */
+  --cat-4: #ba81c5; /* purple - hardest */
+
+  --solved: #2e7d32;       /* "Solved" text on Results */
+  --failed: #c62828;       /* "Failed" text on Results */
+}
+
+
+/* ==========================================================
+  2. GLOBAL FOUNDATION
+  ----------------------------------------------------------
+  Base rules that apply to the whole site.
+  ========================================================== */
+
+/* Make width/height INCLUDE padding and border.
+   Without this, adding padding to a 100%-wide element would
+   make it wider than its container and cause overflow. */
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
+
+/* Required by AGENTS.md: media never grows wider than its
+   container, and keeps its proportions when it shrinks. */
 img,
 picture,
 video {
-    max-width: 100%;
-    height: auto;
-    display: block;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
-/* Hides text visually but keeps it for screen readers */
+
+/* Site-wide font and colors.
+   "Libre Franklin" is loaded from Google Fonts by a <link>
+   in each page's <head>. Arial is the fallback if the font
+   fails to load. */
+body {
+  margin: 0;               /* remove the browser's default 8px margin */
+  font-family: "Libre Franklin", Arial, sans-serif;
+  color: var(--ink);
+  background-color: white;
+}
+
+/* Form controls do NOT inherit the page font by default -
+   browsers give them their own system font. This makes
+   inputs, dropdowns and buttons match the rest of the page. */
+input,
+select,
+button {
+  font: inherit;
+}
+
+/* Visible outline when moving through the page with the
+   keyboard (Tab key). :focus-visible only shows for keyboard
+   users, so mouse clicks don't leave an outline behind. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;     /* small gap between element and outline */
+}
+
+/* Screen-reader-only text.
+   Shrinks the element to 1px and clips it, so it is invisible
+   on screen but still read aloud by screen readers.
+   (display: none would hide it from screen readers too.)
+   Used for the hidden <h2> on the Play page, the "4 of 4"
+   mistakes text, and the <legend>s on the Create page. */
 .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
+
+/* ==========================================================
+  3. LAYOUT + HEADER (all pages)
+  ========================================================== */
+
+/* Main page container: stacks sections vertically, stops
+   growing past 900px wide, and stays centered on big screens.
+   The 1rem side padding keeps content off the screen edges
+   on phones. */
 main {
-    display: flex;
-    flex-direction: column;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;          /* auto left/right margins = centered */
+  padding: 0 1rem;
 }
+
+/* Header = site title + navigation.
+   Phone: title on top, nav underneath (column).
+   Tablet+: switches to a row (see the media query at the end). */
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* left-align both lines */
+  margin-bottom: 1rem;
+}
 
-}
-.pages {
-    display: flex;
-    flex-direction: row;
-}
-.pages > a {
-    margin: 0.625rem;
-    font-size: 1.125rem;
-    color: inherit;
-    text-decoration: none;
-}
-.pages > a:hover,
-.pages > a:focus-visible {
-    text-decoration: underline;
-}
-.pages > a[aria-current="page"] {
-    font-weight: bold;
-    text-decoration: underline;
-}
 h1 {
-    text-align: left;
-    margin-bottom: 10px;
-}
-.choices {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-.choice {
-    display: flex;
-    min-height: 2.25rem;
-    padding: 0.375rem 1rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5rem;
-    border: none;
-    background-color: black;
-    font: inherit;
-    font-size: 1.125rem;
-    color: white;
-    cursor: pointer;
-}
-#comm {
-    background-color: purple;
+  font-weight: 800;        /* extra-bold site title */
+  margin-bottom: 0.625rem;
 }
 
-.board {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+/* Navigation: Play / Create / Results links in a row.
+   gap spaces the links evenly; wrap lets them drop to a new
+   line on very narrow screens instead of overflowing. */
+.pages {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.25rem;
 }
-.row {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+
+.pages > a {
+  font-size: 1.125rem;
+  color: inherit;          /* use the page text color, not link blue */
+  text-decoration: none;   /* no underline until hovered */
 }
-.card {
-    display: flex;
-    background-color: lightgoldenrodyellow;
-    border: black solid 2px;
-    padding: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-    width: 90px;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: 5px;
-    border-radius: 10px;
-    flex-direction: column;
+
+.pages > a:hover {
+  text-decoration: underline;
 }
-.name {
-    margin: 3px;
-    font-weight: bold;
-    font-size: medium;
+
+/* The link for the page you are currently on.
+   Each page marks its own link with aria-current="page" in the
+   HTML, which also tells screen readers "this is the current
+   page". */
+.pages > a[aria-current="page"] {
+  font-weight: 700;
+  text-decoration: underline;
 }
-.mistakes {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-.mistakes > p {
-    font-size: x-large;
-    color: darkslategray;
-    margin-right: 10px;
-}
-.mistakes > div {
-    width: 10px;
-    height: 10px;
-    background-color: darkslategray;
-    border-radius: 10px;
-    margin-right: 5px;
-}
-.gameButtons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-.button {
-    display: flex;
-    margin-right: 10px;
-    justify-content: center;
-    align-items: center;
-    border: solid 1px black;
-    width: 150px;
-    border-radius: 30px;
-    height: 58px;
-    background-color: transparent;
-    font: inherit;
-    font-size: 1.125rem;
-    color: inherit;
-    cursor: pointer;
-}
+
+/* Purple page heading block ("Create a Puzzle", "Your Results"). */
 .sectionTitle {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
+
 .sectionTitle > h2 {
-    color: purple;
-    margin-top: 10px;
-}
-.puzzleInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 50px;
-}
-.categories {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 20px;
-    flex: 1;
-}
-.category {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.625rem;
-    margin: 0 0 1rem;
-    padding: 0;
-    border: 0;
-    min-width: 0;
-}
-.category > input {
-    display: flex;
-    box-sizing: border-box;
-    min-height: 3.125rem;
-    background-color: lightgoldenrodyellow;
-    border-radius: 0.625rem;
-    border: 1px solid black;
-    text-align: center;
-    min-width: 0;
-}
-.category > input:first-of-type {
-    grid-column: 1 / -1;
-    text-align: left;
-    padding-left: 0.625rem;
-}
-.category > input::placeholder {
-    color: gray;
-    font-weight: bold;
-}
-#category1 {
-    background-color: yellow;
-}
-#category2 {
-    background-color: lightgreen;
-}
-#category3 {
-    background-color: deepskyblue;
-}
-#category4 {
-    background-color: purple;
-}
-.mainResults {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-    gap: 1rem;
-}
-.stat {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 6.5rem;
-    padding: 0.5rem;
-    background-color: lightgoldenrodyellow;
-    border: black solid 2px;
-    border-radius: 0.625rem;
-}
-.stat > p {
-    font-size: 1rem;
-    margin: 0.25rem 0 0;
-}
-.stat > .statValue {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0;
-}
-.specificResults > h3 {
-    font-size: 1rem;
-    margin: 1rem 0;
-}
-.infoResult {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.line {
-    display: flex;
-    width: 100%;
-    height: 1px;
-    background-color: black;
-}
-.solved {
-    color: forestgreen;
-}
-.failed {
-    color: red;
+  color: var(--purple);
+  margin-top: 0.625rem;
 }
 
-.infoForm {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+
+/* ==========================================================
+  4. PLAY PAGE (index.html)
+  ========================================================== */
+
+/* ---------- Sport pills ----------
+  Flexbox (not grid) so each pill is only as wide as its text.
+  On phones the pills wrap onto extra lines and stay centered;
+  on tablet+ they spread across one row (see media query). */
+.choices {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
-#user {
-    display: flex;
-    flex: 2;
+
+/* One pill. These are <button>s in the HTML, so this rule also
+   removes the default button border. */
+.choice {
+  display: flex;
+  min-height: 2.25rem;     /* min-height (not height) so text can wrap */
+  padding: 0.375rem 1rem;  /* pill size comes from padding + text */
+  align-items: center;
+  justify-content: center;
+  border-radius: 5rem;     /* large radius = fully rounded ends */
+  border: none;
+  background-color: var(--pill);
+  font-size: 1.125rem;
+  color: white;
+  cursor: pointer;         /* hand cursor = "this is clickable" */
 }
-.infoForm > input {
-    box-sizing: border-box;
-    height: 50px;
-    border-radius: 10px;
-    border: 1px solid black;
-    color: black;
-    padding-left: 10px;
+
+.choice:hover {
+  background-color: #444444;
 }
-.infoForm > select {
-    height: 50px;
-    border-radius: 10px;
-    border: 1px solid black;
+
+/* "Community" pill stands out in purple. */
+#comm {
+  background-color: var(--purple);
 }
-.note > p {
-    font-size: small;
-    margin-top: 0;
+
+#comm:hover {
+  background-color: var(--purple-dark);
 }
-.submitSection {
-    display: flex;
-    justify-content: center;
+
+/* ---------- Board ----------
+  A Connections board is always 4x4, so this grid uses 4 fixed
+  columns instead of the auto-fit pattern used for other cards.
+
+  repeat(4, minmax(0, 1fr)) = 4 equal columns.
+  The minmax(0, ...) part lets a column shrink smaller than
+  its longest word, so a long name can't stretch one column
+  and push the board off the screen. */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.375rem;
+  margin: 1.25rem 0;
 }
+
+/* One player tile (a <button> in the HTML).
+   The tile's width comes from its grid column, so there is
+   no width here. Flexbox centers the name inside the tile. */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center vertically */
+  align-items: center;     /* center horizontally */
+  min-height: 5rem;
+  padding: 0.25rem 0;      /* no side padding: gives long names more room */
+  background-color: var(--tile);
+  border: 2px solid var(--ink);
+  border-radius: 0.625rem;
+  color: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: var(--tile-hover);
+}
+
+/* Player name inside a tile.
+   Long words (like "Lennemann") on narrow phones:
+     1. hyphens: auto      -> split at a syllable with a hyphen
+                              (uses the page's lang="en")
+     2. overflow-wrap      -> last resort: split anywhere rather
+                              than spill out of the tile */
+.name {
+  font-weight: 700;
+  font-size: 0.8125rem;    /* smaller on phones; larger on tablet+ */
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Mistakes Remaining ----------
+  "Mistakes Remaining:" text followed by four dots in a row. */
+.mistakes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;          /* space between the dots */
+}
+
+.mistakes > p {
+  font-size: 1.25rem;
+  color: var(--muted);
+  margin-right: 0.3125rem; /* extra space between text and first dot */
+}
+
+/* One dot. border-radius: 50% turns the square into a circle.
+   (Screen readers skip the dots - see aria-hidden in the HTML.) */
+.mistakes > div {
+  width: 0.625rem;
+  height: 0.625rem;
+  background-color: var(--muted);
+  border-radius: 50%;
+}
+
+/* ---------- Game buttons ----------
+  Shuffle / Deselect All / Submit in a row. */
+.gameButtons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;         /* wrap instead of overflowing on tiny screens */
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Rounded outline button. Also used for the Create page's
+   Submit button.
+   flex: 1 1 0 = buttons share the row width equally;
+   max-width stops them getting too wide on big screens. */
+.button {
+  display: flex;
+  flex: 1 1 0;
+  max-width: 9.375rem;
+  min-height: 3.625rem;
+  padding: 0.5rem 1rem;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 2rem;
+  background-color: transparent; /* remove the grey default button fill */
+  font-size: 1.125rem;
+  color: inherit;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Purple "main action" button. Used together with .button:
+   class="button submitButton". This rule comes after .button,
+   so its colors win. */
 .submitButton {
-    background-color: purple;
-    color: white;
+  background-color: var(--purple);
+  color: white;
 }
 
-/* Tablet and up */
+.submitButton:hover {
+  background-color: var(--purple-dark);
+}
+
+
+/* ==========================================================
+  5. CREATE PAGE (pages/CreatePage.html)
+  ========================================================== */
+
+/* Username + Sport fields side by side. */
+.puzzleInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+/* One label + field pair, stacked (label above the field).
+   min-width: 0 lets the field shrink on very narrow screens -
+   by default flex items refuse to get smaller than their
+   content. */
+.infoForm {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Username gets twice the width of Sport (flex 2 vs flex 1). */
+#user {
+  flex: 2;
+}
+
+/* Shared look for the Username box and the Sport dropdown. */
+.infoForm > input,
+.infoForm > select {
+  min-height: 3.125rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.infoForm > input {
+  min-width: 0;            /* inputs have a built-in minimum width; remove it */
+  padding-left: 0.625rem;
+}
+
+/* Wrapper around all four category groups. */
+.categories {
+  margin-top: 1.25rem;
+}
+
+/* One category group (a <fieldset> in the HTML).
+   Phone layout - a 2-column grid:
+     [ Category name (full width) ]
+     [ Athlete 1 ] [ Athlete 2 ]
+     [ Athlete 3 ] [ Athlete 4 ]
+   Tablet+ switches to one row (see media query).
+   The border/padding/margin/min-width lines remove the
+   browser's default <fieldset> box. */
+.category {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.625rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+/* Every input in a category (name + athletes). */
+.category > input {
+  min-height: 3.125rem;
+  min-width: 0;            /* let inputs shrink to fit their grid cell */
+  background-color: var(--tile);
+  border-radius: 0.625rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  text-align: center;
+}
+
+/* The category NAME input (the first input in each group).
+   :first-of-type is used instead of :first-child because the
+   hidden <legend> is the fieldset's actual first child.
+   grid-column: 1 / -1 = stretch from the first grid line to
+   the last, i.e. span the full row. */
+.category > input:first-of-type {
+  grid-column: 1 / -1;
+  text-align: left;
+  padding-left: 0.625rem;
+  font-weight: 700;
+}
+
+.category > input::placeholder {
+  color: var(--placeholder);
+  font-weight: 700;
+}
+
+/* Difficulty colors for each category name box. */
+#category1 {
+  background-color: var(--cat-1);
+}
+
+#category2 {
+  background-color: var(--cat-2);
+}
+
+#category3 {
+  background-color: var(--cat-3);
+}
+
+#category4 {
+  background-color: var(--cat-4);
+}
+
+/* Small help text under the categories. */
+.note > p {
+  font-size: 0.8125rem;
+  margin-top: 0;
+}
+
+/* Centers the Create page's Submit button. */
+.submitSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+
+/* ==========================================================
+  6. RESULTS PAGE (pages/ResultsPage.html)
+  ========================================================== */
+
+/* ---------- Stat boxes ----------
+  Stats are always either 2x2 or one row of 4 (never 3 + 1),
+  so this uses fixed columns instead of auto-fit.
+  Phone: repeat(2, 1fr) = 2 equal columns -> 2x2.
+  Tablet+: changed to 4 columns in the media query. */
+.mainResults {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* One stat box: big number on top, label underneath,
+   centered in both directions. */
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 6.5rem;
+  padding: 0.5rem;
+  background-color: var(--tile);
+  border: 2px solid var(--ink);
+  border-radius: 0.625rem;
+}
+
+/* The label ("Games Played", "Win Rate", ...). */
+.stat > p {
+  font-size: 1rem;
+  margin: 0.25rem 0 0;
+}
+
+/* The big number ("24", "75%", ...).
+   Uses two classes (.stat > .statValue) so it is more specific
+   than .stat > p above and its size/margin win. */
+.stat > .statValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* ---------- Result lists ----------
+  "By Sport" and "Recent Games" sections. */
+.specificResults > h3 {
+  font-size: 1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* One row: description on the left, result on the right,
+   with a divider line underneath. */
+.infoResult {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* push the two sides apart */
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Left side (e.g. "Sep 24 · Daily Football").
+   Allowed to shrink and wrap - including very long usernames
+   with no spaces - so the row never overflows. */
+.infoResult > p:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Right side (e.g. "Solved · 1 mistake").
+   Never shrinks or wraps, so the result always reads on one
+   line; the left side wraps instead. */
+.infoResult > p:last-child {
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.solved {
+  color: var(--solved);
+}
+
+.failed {
+  color: var(--failed);
+}
+
+
+/* ==========================================================
+  7. TABLET AND UP (768px and wider)
+  ----------------------------------------------------------
+  Everything above is the phone layout. These rules only
+  apply when the screen is at least 768px wide, and override
+  the phone styles where the layout should change.
+  (AGENTS.md also lists 1024px and 1280px breakpoints; this
+  site doesn't need them yet.)
+  ========================================================== */
 @media (min-width: 768px) {
-    h1 {
-        margin-bottom: 0.67em;
-    }
-    .sectionTitle > h2 {
-        margin-top: 0.83em;
-    }
-    .board {
-        margin-top: 60px;
-    }
-    .card {
-        width: 200px;
-        height: 100px;
-    }
-    .name {
-        font-size: large;
-    }
-    .choices {
-        justify-content: space-between;
-    }
-    .stat > p {
-        font-size: 1.125rem;
-    }
-    .category {
-        grid-template-columns: 2fr repeat(4, 1fr);
-    }
-    .category > input:first-of-type {
-        grid-column: auto;
-    }
+  /* Header: title on the left, nav on the right, one row. */
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  /* Restore the browser's normal heading spacing. */
+  h1 {
+    margin-bottom: 0.67em;
+  }
+
+  .sectionTitle > h2 {
+    margin-top: 0.83em;
+  }
+
+  /* Sport pills spread across the full width in one row. */
+  .choices {
+    justify-content: space-between;
+  }
+
+  /* Board: more room between tiles and above the board. */
+  .board {
+    gap: 0.625rem;
+    margin-top: 3.75rem;
+  }
+
+  /* Taller tiles with bigger names. */
+  .card {
+    min-height: 6.25rem;
+  }
+
+  .name {
+    font-size: 1.125rem;
+  }
+
+  /* Stat boxes: all four in one row. */
+  .mainResults {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat > p {
+    font-size: 1.125rem;
+  }
+
+  /* More space between Username and Sport. */
+  .puzzleInfo {
+    gap: 3.125rem;
+  }
+
+  /* Each category on one row:
+     name column (2 shares) + 4 athlete columns (1 share each). */
+  .category {
+    grid-template-columns: 2fr repeat(4, 1fr);
+  }
+
+  /* The name no longer spans the full row - back to one cell. */
+  .category > input:first-of-type {
+    grid-column: auto;
+  }
 }
