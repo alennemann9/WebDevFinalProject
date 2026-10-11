@@ -24,11 +24,18 @@
 <body>
 <main>
   <!-- ===== Site header (same on every page) =====
-       Site title + main navigation. The link for the current page
-       has aria-current="page", which the CSS underlines and bolds
-       and screen readers announce as "current page". -->
+       Logo + site title, then the main navigation tabs. The link
+       for the current page has aria-current="page", which the CSS
+       shows as a purple tab and screen readers announce as
+       "current page". -->
   <header class="header">
-    <h1>Sports Connections</h1>
+    <div class="brand">
+      <!-- Logo: four empty squares colored by the CSS (.logo).
+           aria-hidden="true" = purely decorative, so screen
+           readers skip it. -->
+      <span class="logo" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <h1>Sports Connections</h1>
+    </div>
     <nav class="pages" aria-label="Main">
       <a href="index.html" aria-current="page">Play</a>
       <a href="pages/CreatePage.html">Create</a>
