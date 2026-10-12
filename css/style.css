@@ -56,6 +56,25 @@
   --failed: #c62828;       /* "Failed" text on Results */
 }
 
+/* ==========================================================
+  SPACING SCALE
+  ----------------------------------------------------------
+  All spacing between and inside sections uses these five
+  sizes, so gaps are consistent on every page. Rules:
+    - Header -> first content on a page   = --space-l
+    - Heading -> its own content          = --space-s
+    - Between items in a group            = --space-m
+    - Between sections                    = --space-l
+  Changing a value here adjusts every matching gap at once.
+  ========================================================== */
+:root {
+  --space-xs: 0.25rem;     /*  4px - tiny nudges, small gaps */
+  --space-s: 0.75rem;      /* 12px - inside a component */
+  --space-m: 1rem;         /* 16px - between items in a group */
+  --space-l: 2rem;         /* 32px - between sections (40px on tablet+) */
+  --space-xl: 3rem;        /* 48px - big breaks, end of page */
+}
+
 
 /* ==========================================================
   2. GLOBAL FOUNDATION
@@ -138,14 +157,14 @@ select:focus-visible {
 
 /* Main page container: stacks sections vertically, stops
    growing past 900px wide, and stays centered on big screens.
-   The 1rem side padding keeps content off the screen edges
-   on phones. */
+   The side padding keeps content off the screen edges on
+   phones; the bottom padding leaves room at the end of the page. */
 main {
   display: flex;
   flex-direction: column;
   max-width: 900px;
   margin: 0 auto;          /* auto left/right margins = centered */
-  padding: 0 1rem;
+  padding: 0 var(--space-m) var(--space-xl); /* sides + space at the page bottom */
 }
 
 /* Header = logo + site title + navigation, with a thin divider
@@ -158,7 +177,7 @@ main {
   align-items: flex-start; /* left-align both lines */
   padding-top: 0.75rem;
   border-bottom: 1px solid var(--line);
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-l); /* same gap to the content on every page */
 }
 
 /* Brand = the 2x2 logo and the site title side by side. */
@@ -218,7 +237,7 @@ h1 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: var(--space-xs);
 }
 
 /* One tab. Every tab has a 3px bottom border that is
@@ -255,15 +274,27 @@ h1 {
   border-bottom-color: var(--purple);
 }
 
-/* Purple page heading block ("Create a Puzzle", "Your Results"). */
+/* Purple page heading block ("Create a Puzzle", "Your Results").
+   The browser's default margins on <h2> and <p> are removed and
+   replaced with gap, so the heading sits close to its own text
+   (--space-s) and the block is followed by a section gap
+   (--space-l). Note: inside a flex container, margins ADD UP
+   instead of collapsing, which is why the defaults made this gap
+   too big before. */
 .sectionTitle {
   display: flex;
   flex-direction: column;
+  gap: var(--space-s);
+  margin-bottom: var(--space-l);
 }
 
 .sectionTitle > h2 {
   color: var(--purple);
-  margin-top: 0.625rem;
+  margin: 0;
+}
+
+.sectionTitle > p {
+  margin: 0;
 }
 
 
@@ -280,7 +311,7 @@ h1 {
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-s);
 }
 
 /* One pill. These are <button>s in the HTML, so this rule also
@@ -288,7 +319,7 @@ h1 {
 .choice {
   display: flex;
   min-height: 2.25rem;     /* min-height (not height) so text can wrap */
-  padding: 0.375rem 1rem;  /* pill size comes from padding + text */
+  padding: 0.375rem 0.875rem; /* pill size comes from padding + text */
   align-items: center;
   justify-content: center;
   border-radius: 5rem;     /* large radius = fully rounded ends */
@@ -323,8 +354,8 @@ h1 {
 .board {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.375rem;
-  margin: 1.25rem 0;
+  gap: var(--space-xs);     /* tight on phones so long names fit */
+  margin: var(--space-l) 0;  /* section gap above and below */
 }
 
 /* One player tile (a <button> in the HTML).
@@ -375,13 +406,14 @@ h1 {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 0.3125rem;          /* space between the dots */
+  gap: var(--space-xs);    /* space between the dots */
+  margin-bottom: var(--space-m);
 }
 
 .mistakes > p {
   font-size: 1.25rem;
   color: var(--muted);
-  margin-right: 0.3125rem; /* extra space between text and first dot */
+  margin: 0 var(--space-xs) 0 0; /* no default <p> margins; small gap before the dots */
 }
 
 /* One dot. border-radius: 50% turns the square into a circle.
@@ -401,8 +433,7 @@ h1 {
   flex-wrap: wrap;         /* wrap instead of overflowing on tiny screens */
   justify-content: center;
   align-items: center;
-  gap: 0.625rem;
-  margin-bottom: 1.25rem;
+  gap: var(--space-s);
 }
 
 /* Rounded outline button. Also used for the Create page's
@@ -451,7 +482,7 @@ h1 {
 .puzzleInfo {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: var(--space-m);
 }
 
 /* One label + field pair, stacked (label above the field).
@@ -488,7 +519,7 @@ h1 {
 
 /* Wrapper around all four category groups. */
 .categories {
-  margin-top: 1.25rem;
+  margin-top: var(--space-l);
 }
 
 /* One category group (a <fieldset> in the HTML).
@@ -502,8 +533,8 @@ h1 {
 .category {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.625rem;
-  margin: 0 0 1rem;
+  gap: var(--space-s);
+  margin: 0 0 var(--space-m);
   padding: 0;
   border: 0;
   min-width: 0;
@@ -559,14 +590,13 @@ h1 {
 /* Small help text under the categories. */
 .note > p {
   font-size: 0.8125rem;
-  margin-top: 0;
+  margin: 0 0 var(--space-l);
 }
 
 /* Centers the Create page's Submit button. */
 .submitSection {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.25rem;
 }
 
 
@@ -582,7 +612,7 @@ h1 {
 .mainResults {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: var(--space-m);
 }
 
 /* One stat box: big number on top, label underneath,
@@ -617,10 +647,13 @@ h1 {
 }
 
 /* ---------- Result lists ----------
-  "By Sport" and "Recent Games" sections. */
+  "By Sport" and "Recent Games" sections.
+  EXCEPTION to the spacing rules: the Results page is meant to
+  feel compact, so these sections use --space-m above (instead
+  of the usual --space-l section gap) and --space-xs below. */
 .specificResults > h3 {
   font-size: 1rem;
-  margin: 1.5rem 0 0.5rem;
+  margin: var(--space-m) 0 var(--space-xs); /* smaller gap above, tight to its list below */
 }
 
 /* One row: description on the left, result on the right,
@@ -629,8 +662,13 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between; /* push the two sides apart */
-  gap: 1rem;
+  gap: var(--space-m);
+  padding: var(--space-s) 0;     /* row height comes from padding, not <p> defaults */
   border-bottom: 1px solid var(--line);
+}
+
+.infoResult > p {
+  margin: 0;
 }
 
 /* Left side (e.g. "Sep 24 · Daily Football").
@@ -658,6 +696,143 @@ h1 {
   color: var(--failed);
 }
 
+/* ---------- By Sport: win-rate bars ----------
+  Each row is a grid with three children: sport name (<p>),
+  bar (<meter>), record (<p>).
+  Phone:   [ Football            6 of 7 wins ]
+           [ =============bar=============   ]
+  Tablet+: [ Football | =====bar===== | 6 of 7 wins ]
+  (The tablet layout is in the media query at the end.) */
+.sportRow {
+  display: grid;
+  grid-template-columns: 1fr auto; /* name stretches, record fits its text */
+  column-gap: var(--space-m);
+  row-gap: var(--space-xs);
+  align-items: center;
+}
+
+/* Explicit placement: name top-left, record top-right... */
+.sportRow > p:first-child {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.sportRow > p:last-child {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* ...and the bar on its own line, spanning the full width. */
+.sportRow > meter {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+/* The win-rate bar.
+   <meter value="6" max="7"> fills itself to 6/7 automatically,
+   so no inline width style is needed (AGENTS.md bans those).
+   Browsers draw meters their own way, so appearance: none plus
+   the vendor-prefixed rules below restyle it:
+     ::-webkit-meter-bar       -> empty track (Chrome, Safari, Edge)
+     ::-webkit-meter-...-value -> filled part (all three fill states)
+     ::-moz-meter-bar          -> filled part (Firefox) */
+.winBar {
+  width: 100%;
+  height: 0.5rem;
+  border: 0;
+  border-radius: 1rem;
+  background: var(--tile);
+  appearance: none;
+}
+
+.winBar::-webkit-meter-bar {
+  height: 0.5rem;
+  border: 0;
+  border-radius: 1rem;
+  background: var(--tile);
+}
+
+.winBar::-webkit-meter-optimum-value,
+.winBar::-webkit-meter-suboptimum-value,
+.winBar::-webkit-meter-even-less-good-value {
+  border-radius: 1rem;
+  background: var(--purple);
+}
+
+.winBar::-moz-meter-bar {
+  border-radius: 1rem;
+  background: var(--purple);
+}
+
+/* ---------- Recent Games: mini puzzle grids ----------
+  Each row is a grid: mini grid, puzzle name, outcome.
+  Phone:   [grid] Sep 24 · Daily Football
+                  Solved · 1 mistake
+  Tablet+: [grid] Sep 24 · Daily Football      Solved · 1 mistake
+  (The tablet layout is in the media query at the end.) */
+.gameRow {
+  display: grid;
+  grid-template-columns: auto 1fr; /* grid fits its squares, text takes the rest */
+  column-gap: var(--space-m);
+  row-gap: var(--space-xs);
+  align-items: center;
+}
+
+/* Mini grid sits on the left, spanning both text lines. */
+.gameRow > .miniGrid {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+/* Puzzle name: first line. min-width + overflow-wrap let very
+   long usernames wrap instead of overflowing. */
+.gameRow > p:first-of-type {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Outcome: second line, under the name. */
+.gameRow > p:last-child {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  text-align: left;
+}
+
+/* The mini grid itself: 4 squares per row (one row per guess),
+   like the Connections share result. */
+.miniGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 0.5rem);
+  gap: 2px;
+}
+
+/* One square, colored by its player's real category. */
+.sq {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 1px;
+}
+
+.sq.c1 {
+  background-color: var(--cat-1);
+}
+
+.sq.c2 {
+  background-color: var(--cat-2);
+}
+
+.sq.c3 {
+  background-color: var(--cat-3);
+}
+
+.sq.c4 {
+  background-color: var(--cat-4);
+}
+
 
 /* ==========================================================
   7. TABLET AND UP (768px and wider)
@@ -669,6 +844,12 @@ h1 {
   site doesn't need them yet.)
   ========================================================== */
 @media (min-width: 768px) {
+  /* Bigger screens get more room between sections. Redefining
+     the variable here updates every rule that uses it. */
+  :root {
+    --space-l: 2.5rem;
+  }
+
   /* Header: logo + title on the left, tabs on the right, in one
      row. align-items: flex-end keeps the tabs at the bottom so
      their purple bar still sits on the divider line. */
@@ -676,7 +857,6 @@ h1 {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 1.5rem;
   }
 
   /* Small bottom margin so the title lines up with the tab text
@@ -705,19 +885,14 @@ h1 {
     padding-left: 0.75rem;
   }
 
-  .sectionTitle > h2 {
-    margin-top: 0.83em;
-  }
-
   /* Sport pills spread across the full width in one row. */
   .choices {
     justify-content: space-between;
   }
 
-  /* Board: more room between tiles and above the board. */
+  /* Board: more room between tiles. */
   .board {
-    gap: 0.625rem;
-    margin-top: 3.75rem;
+    gap: var(--space-s);
   }
 
   /* Taller tiles with bigger names. */
@@ -741,7 +916,7 @@ h1 {
 
   /* More space between Username and Sport. */
   .puzzleInfo {
-    gap: 3.125rem;
+    gap: var(--space-xl);
   }
 
   /* Each category on one row:
@@ -753,5 +928,41 @@ h1 {
   /* The name no longer spans the full row - back to one cell. */
   .category > input:first-of-type {
     grid-column: auto;
+  }
+
+  /* By Sport: name | bar | record, all in one row. */
+  .sportRow {
+    grid-template-columns: 8rem 1fr 7rem;
+  }
+
+  .sportRow > p:first-child,
+  .sportRow > meter,
+  .sportRow > p:last-child {
+    grid-row: 1;
+  }
+
+  .sportRow > meter {
+    grid-column: 2;
+  }
+
+  .sportRow > p:last-child {
+    grid-column: 3;
+  }
+
+  /* Recent Games: grid | name | outcome, all in one row. */
+  .gameRow {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .gameRow > .miniGrid,
+  .gameRow > p:first-of-type,
+  .gameRow > p:last-child {
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .gameRow > p:last-child {
+    grid-column: 3;
+    text-align: right;
   }
 }
