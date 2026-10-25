@@ -1,3 +1,13 @@
+
+// What a saved game JSON Object would look like
+const savedGame = {
+    "puzzleId": 1010,
+    "solved": true,
+    "mistakes": 1,
+    "guesses": [[1,1,1,1], [2,3,2,2], [2,2,2,2], [3,3,3,3], [4,4,4,4]]
+}
+
+
 const puzzle = {
     "id": 1010,
     "author": null,
