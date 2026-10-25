@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&display=swap">
   <!-- Shared stylesheet ("../" = go up one folder from pages/) -->
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/results.js" defer></script>
 </head>
 <body>
 <main>
@@ -51,93 +52,37 @@
        (not a heading, since it's data) and the label is a plain <p>. -->
   <div class="mainResults">
     <div class="stat">
-      <p class="statValue">24</p>
+      <p class="statValue" id="gamesPlayed"></p>
       <p>Games Played</p>
     </div>
     <div class="stat">
-      <p class="statValue">75%</p>
+      <p class="statValue" id="winRate"></p>
       <p>Win Rate</p>
     </div>
     <div class="stat">
-      <p class="statValue">3</p>
+      <p class="statValue" id="currentStreak"></p>
       <p>Current Streak</p>
     </div>
     <div class="stat">
-      <p class="statValue">7</p>
+      <p class="statValue" id="bestStreak"></p>
       <p>Best Streak</p>
     </div>
   </div>
-  <div class="specificResults">
+  <div class="specificResults" id="bySport">
     <!-- ===== Wins by sport =====
          Each row: sport, a win-rate bar, and the record.
          <meter value="6" max="7"> draws the bar from the numbers
          themselves, so no inline styles are needed. -->
     <h3>By Sport</h3>
-    <div class="infoResult sportRow">
-      <p>Football</p>
-      <meter class="winBar" value="6" max="7" aria-label="Football win rate"></meter>
-      <p>6 of 7 wins</p>
-    </div>
-    <div class="infoResult sportRow">
-      <p>Basketball</p>
-      <meter class="winBar" value="4" max="6" aria-label="Basketball win rate"></meter>
-      <p>4 of 6 wins</p>
-    </div>
-    <div class="infoResult sportRow">
-      <p>Baseball</p>
-      <meter class="winBar" value="5" max="5" aria-label="Baseball win rate"></meter>
-      <p>5 of 5 wins</p>
-    </div>
-    <div class="infoResult sportRow">
-      <p>Hockey</p>
-      <meter class="winBar" value="1" max="3" aria-label="Hockey win rate"></meter>
-      <p>1 of 3 wins</p>
-    </div>
-    <div class="infoResult sportRow">
-      <p>All Sports</p>
-      <meter class="winBar" value="2" max="3" aria-label="All Sports win rate"></meter>
-      <p>2 of 3 wins</p>
-    </div>
+
   </div>
-  <div class="specificResults">
+  <div class="specificResults" id="recentGames">
     <!-- ===== Recent games =====
          Each row starts with a mini grid showing how the puzzle went,
          like the Connections share result: one row of four squares per
          guess, colored by each player's real category (c1 = yellow ...
          c4 = purple). A mixed row = a wrong guess. -->
     <h3>Recent Games</h3>
-    <div class="infoResult gameRow">
-      <div class="miniGrid" aria-hidden="true">
-        <span class="sq c1"></span><span class="sq c1"></span><span class="sq c1"></span><span class="sq c1"></span>
-        <span class="sq c2"></span><span class="sq c3"></span><span class="sq c2"></span><span class="sq c2"></span>
-        <span class="sq c2"></span><span class="sq c2"></span><span class="sq c2"></span><span class="sq c2"></span>
-        <span class="sq c3"></span><span class="sq c3"></span><span class="sq c3"></span><span class="sq c3"></span>
-        <span class="sq c4"></span><span class="sq c4"></span><span class="sq c4"></span><span class="sq c4"></span>
-      </div>
-      <p>Sep 24 · Daily Football</p>
-      <p class="solved">Solved · 1 mistake</p>
-    </div>
-    <div class="infoResult gameRow">
-      <div class="miniGrid" aria-hidden="true">
-        <span class="sq c2"></span><span class="sq c2"></span><span class="sq c2"></span><span class="sq c2"></span>
-        <span class="sq c1"></span><span class="sq c1"></span><span class="sq c1"></span><span class="sq c1"></span>
-        <span class="sq c3"></span><span class="sq c3"></span><span class="sq c3"></span><span class="sq c3"></span>
-        <span class="sq c4"></span><span class="sq c4"></span><span class="sq c4"></span><span class="sq c4"></span>
-      </div>
-      <p>Sep 24 · Community Football by teambrendanhaggerty</p>
-      <p class="solved">Solved · 0 mistakes</p>
-    </div>
-    <div class="infoResult gameRow">
-      <div class="miniGrid" aria-hidden="true">
-        <span class="sq c1"></span><span class="sq c1"></span><span class="sq c1"></span><span class="sq c1"></span>
-        <span class="sq c2"></span><span class="sq c4"></span><span class="sq c2"></span><span class="sq c3"></span>
-        <span class="sq c3"></span><span class="sq c2"></span><span class="sq c3"></span><span class="sq c3"></span>
-        <span class="sq c4"></span><span class="sq c2"></span><span class="sq c4"></span><span class="sq c4"></span>
-        <span class="sq c2"></span><span class="sq c3"></span><span class="sq c2"></span><span class="sq c4"></span>
-      </div>
-      <p>Sep 23 · Daily Hockey</p>
-      <p class="failed">Failed · 4 mistakes</p>
-    </div>
   </div>
 </main>
 </body>
