@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&display=swap">
   <!-- Shared stylesheet for the whole site -->
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/play.js" defer></script>
 </head>
 <body>
 <main>
@@ -63,23 +64,8 @@
        16 player tiles in a 4x4 CSS grid (4 per row).
        Each tile is a <button> so it can be reached with the Tab key
        and clicked; the name sits in a <span class="name">. -->
-  <div class="board">
-    <button type="button" class="card"><span class="name">Barry Bonds</span></button>
-    <button type="button" class="card"><span class="name">Murph Lennemann</span></button>
-    <button type="button" class="card"><span class="name">Blake Griffin</span></button>
-    <button type="button" class="card"><span class="name">Buster Posey</span></button>
-    <button type="button" class="card"><span class="name">Cooper Flagg</span></button>
-    <button type="button" class="card"><span class="name">Blake Snell</span></button>
-    <button type="button" class="card"><span class="name">Tom Brady</span></button>
-    <button type="button" class="card"><span class="name">Jason Giambi</span></button>
-    <button type="button" class="card"><span class="name">Herschel Walker</span></button>
-    <button type="button" class="card"><span class="name">Tarik Skubal</span></button>
-    <button type="button" class="card"><span class="name">Stephen Curry</span></button>
-    <button type="button" class="card"><span class="name">Lynn Swann</span></button>
-    <button type="button" class="card"><span class="name">Jim Thorpe</span></button>
-    <button type="button" class="card"><span class="name">Tyler Glasnow</span></button>
-    <button type="button" class="card"><span class="name">Roki Sasaki</span></button>
-    <button type="button" class="card"><span class="name">Sauce Gardner</span></button>
+  <div class="board" id="board">
+
   </div>
   <!-- ===== Mistakes remaining =====
        Four dots = four mistakes left. The dots are empty <div>s
